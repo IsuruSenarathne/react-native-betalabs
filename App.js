@@ -14,6 +14,9 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
+  Linking,
+  Navigator,
 } from 'react-native';
 
 import {
@@ -23,13 +26,35 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import 'react-native-gesture-handler';
+
+// import {Router, Scene} from 'react-native-router-flux';
 
 import Camera from './components/BBCam.js';
+import Home from './components/Home';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 const App: () => React$Node = () => {
+  const handleSend = () => {
+    console.log('helo');
+  };
   return (
     <>
-      <View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{title: 'Welcome'}}
+          />
+          <Stack.Screen name="Camera" component={Camera} />
+        </Stack.Navigator>
+      </NavigationContainer>
+
+      {/* <View>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Step One</Text>
           <Text style={styles.sectionDescription}>
@@ -44,8 +69,9 @@ const App: () => React$Node = () => {
             at the end of this section.
           </Text>
         </View>
+        <Button title="send" onPress={handleSend} />
       </View>
-      <Camera />
+      <Camera /> */}
     </>
   );
 };

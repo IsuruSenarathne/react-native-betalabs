@@ -6,15 +6,34 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  AsyncStorage
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
+import RNFS from "react-native-fs";
 
 class BBCam extends PureComponent {
   takePicture = async () => {
     if (this.camera) {
       const options = {quality: 0.5, base64: true};
       const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
+
+      var destPath = RNFS.PicturesDirectoryPath + '/offender.jpg';
+      RNFS.moveFile(data.uri, destPath)
+        .then(success => {
+          console.log('file moved!');
+          // Toast.show(
+          //   'Success. Press back to continue',
+          //   Toast.LONG,
+          //   Toast.CENTER,
+          // );
+          AsyncStorage.setItem('localImg', destPath);
+        })
+        .catch(err => {
+          console.log('Error: ' + err.message);
+        });
+      // this.props.navigation.navigate('Home', {
+      //   destPath,
+      // });
     }
   };
 

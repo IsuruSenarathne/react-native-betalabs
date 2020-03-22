@@ -36,6 +36,8 @@ target 'betalabs' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'ReactNativeAudioToolkit', :path => '../node_modules/@react-native-community/audio-toolkit'
+
   target 'betalabsTests' do
     inherit! :search_paths
     # Pods for testing
